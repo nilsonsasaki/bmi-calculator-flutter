@@ -4,12 +4,12 @@ class ReusableIconConfig extends StatelessWidget {
   const ReusableIconConfig({
     this.icon,
     this.text,
-    this.iconTextColorHex,
+    this.iconTextColor,
   });
 
   final IconData icon;
   final String text;
-  final int iconTextColorHex;
+  final Color iconTextColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ReusableIconConfig extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 18.0,
-            color: Color(iconTextColorHex),
+            color: iconTextColor,
           ),
         ),
       ],
