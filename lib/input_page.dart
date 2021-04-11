@@ -3,10 +3,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'reusable_icon_config.dart';
 
-const int backgroundColorHex = 0xFF1D1E33;
+const Color activeColor = Color(0xFF1D1E33);
+const Color inactiveColor = Color(0xFF111328);
 const double bottomContainerHeight = 80.0;
-const int bottomContainerColorHex = 0xFFEB1555;
-const int iconTextColor = 0xFF8D8E98;
+const Color bottomContainerColor = Color(0xFFEB1555);
+const Color iconTextColor = Color(0xFF8D8E98);
+
+enum Gender {
+  male,
+  female,
+}
 
 class InputPage extends StatefulWidget {
   @override
@@ -14,6 +20,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,22 +34,42 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(
-                    color: Color(backgroundColorHex),
-                    cardChild: ReusableIconConfig(
-                      icon: FontAwesomeIcons.mars,
-                      text: 'MALE',
-                      iconTextColorHex: iconTextColor,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                      print('Male card was pressed');
+                    },
+                    child: ReusableCard(
+                      color: selectedGender == Gender.male
+                          ? activeColor
+                          : inactiveColor,
+                      cardChild: ReusableIconConfig(
+                        icon: FontAwesomeIcons.mars,
+                        text: 'MALE',
+                        iconTextColor: iconTextColor,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: ReusableCard(
-                    color: Color(backgroundColorHex),
-                    cardChild: ReusableIconConfig(
-                      icon: FontAwesomeIcons.venus,
-                      text: 'FEMALE',
-                      iconTextColorHex: iconTextColor,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                      print('Female card was pressed');
+                    },
+                    child: ReusableCard(
+                      color: selectedGender == Gender.female
+                          ? activeColor
+                          : inactiveColor,
+                      cardChild: ReusableIconConfig(
+                        icon: FontAwesomeIcons.venus,
+                        text: 'FEMALE',
+                        iconTextColor: iconTextColor,
+                      ),
                     ),
                   ),
                 ),
@@ -50,7 +78,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              color: Color(backgroundColorHex),
+              color: activeColor,
             ),
           ),
           Expanded(
@@ -59,19 +87,19 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: Color(backgroundColorHex),
+                    color: activeColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: Color(backgroundColorHex),
+                    color: activeColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: Color(bottomContainerColorHex),
+            color: bottomContainerColor,
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
             height: bottomContainerHeight,
