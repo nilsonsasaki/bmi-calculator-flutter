@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'reusable_icon_config.dart';
-
-const Color activeColor = Color(0xFF1D1E33);
-const Color inactiveColor = Color(0xFF111328);
-const double bottomContainerHeight = 80.0;
-const Color bottomContainerColor = Color(0xFFEB1555);
-const Color iconTextColor = Color(0xFF8D8E98);
+import 'constants.dart';
 
 enum Gender {
   male,
@@ -21,6 +16,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -29,47 +25,40 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.male;
                       });
-                      print('Male card was pressed');
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.male
-                          ? activeColor
-                          : inactiveColor,
-                      cardChild: ReusableIconConfig(
-                        icon: FontAwesomeIcons.mars,
-                        text: 'MALE',
-                        iconTextColor: iconTextColor,
-                      ),
+                    color: selectedGender == Gender.male
+                        ? kActiveColor
+                        : kInactiveColor,
+                    cardChild: ReusableIconConfig(
+                      icon: FontAwesomeIcons.mars,
+                      text: 'MALE',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.female;
                       });
-                      print('Female card was pressed');
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.female
-                          ? activeColor
-                          : inactiveColor,
-                      cardChild: ReusableIconConfig(
-                        icon: FontAwesomeIcons.venus,
-                        text: 'FEMALE',
-                        iconTextColor: iconTextColor,
-                      ),
+                    color: selectedGender == Gender.female
+                        ? kActiveColor
+                        : kInactiveColor,
+                    cardChild: ReusableIconConfig(
+                      icon: FontAwesomeIcons.venus,
+                      text: 'FEMALE',
                     ),
                   ),
                 ),
@@ -78,7 +67,53 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              color: activeColor,
+              color: kActiveColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: kLabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLabelTextStyle,
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Color(0xFF8D8E98),
+                      thumbColor: Color(0xFFEB1555),
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: 15.0,
+                      ),
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 30.0),
+                      overlayColor: Color(0x29EB1555),
+                    ),
+                    child: Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 220.0,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.toInt();
+                          });
+                        }),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -87,22 +122,22 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
+                    color: kActiveColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
+                    color: kActiveColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           ),
         ],
       ),
