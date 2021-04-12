@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class ReusableIconConfig extends StatelessWidget {
-  const ReusableIconConfig({
-    this.icon,
-    this.text,
-    this.iconTextColor,
-  });
+  ReusableIconConfig({this.icon, this.text});
 
   final IconData icon;
   final String text;
-  final Color iconTextColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +23,7 @@ class ReusableIconConfig extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 18.0,
-            color: iconTextColor,
+            color: kLabelTextStyle.color,
           ),
         ),
       ],
