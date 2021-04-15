@@ -8,6 +8,11 @@ const Color kLabelTextColor = Color(0xFF8D8E98);
 const Color kFloatButtonColor = Color(0xFF4c4F5E);
 const Color kNormalResultTextColor = Color(0xFF24D876);
 
+enum Gender {
+  male,
+  female,
+}
+
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: kLabelTextColor,
